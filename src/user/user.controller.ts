@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -38,6 +39,15 @@ export class UserController {
         id,
       },
       data,
+    });
+  }
+
+  @Delete('/:id')
+  public deleteUser(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<User | null> {
+    return this.user.deleteUser({
+      id,
     });
   }
 }
