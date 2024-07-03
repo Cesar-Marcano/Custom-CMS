@@ -8,6 +8,7 @@ datasource db {
 }
 
 enum Role {
+  READONLY
   USER
   ADMIN
 }
@@ -17,6 +18,7 @@ model User {
   email    String @unique
   name     String
   lastName String
+  role     Role   @default(USER)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -27,6 +29,6 @@ model Post {
   slug    String @id @unique
   title   String
   content String
-  user  User   @relation(fields: [userId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
   userId  Int
 }
