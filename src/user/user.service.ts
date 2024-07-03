@@ -6,7 +6,7 @@ import { DatabaseService } from 'src/database/database.service';
 export class UserService {
   constructor(private prisma: DatabaseService) {}
 
-  async user(
+  user(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<User | null> {
     return this.prisma.user.findUnique({
@@ -14,7 +14,7 @@ export class UserService {
     });
   }
 
-  async users(params: {
+  users(params: {
     skip?: number;
     take?: number;
     cursor?: Prisma.UserWhereUniqueInput;
@@ -31,7 +31,7 @@ export class UserService {
     });
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+  createUser(data: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data,
     });
