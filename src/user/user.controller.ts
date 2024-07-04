@@ -17,7 +17,7 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 export class UserController {
   constructor(private readonly user: UserService) {}
 
-  @Get('/:id')
+  @Get(':id')
   public async getUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return await this.user.user({
       id,
@@ -29,7 +29,7 @@ export class UserController {
     return await this.user.createUser(data);
   }
 
-  @Patch('/:id')
+  @Patch(':id')
   public async updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() data: UpdateUserDto,
@@ -42,7 +42,7 @@ export class UserController {
     });
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   public async deleteUser(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<User | null> {

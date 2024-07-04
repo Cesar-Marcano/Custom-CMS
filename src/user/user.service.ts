@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import * as bcrypt from 'bcrypt';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class UserService {
@@ -38,9 +39,20 @@ export class UserService {
 
     data.password = hash;
 
-    return await this.prisma.user.create({
-      data,
-    });
+    try {
+      return await this.prisma.user.create({
+        data,
+      });
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new BadRequestException(
+            'A user with this email already exists.',
+          );
+        }
+      }
+      throw error;
+    }
   }
 
   async updateUser(params: {
