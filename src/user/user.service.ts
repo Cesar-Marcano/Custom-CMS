@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 import * as bcrypt from 'bcrypt';
@@ -11,13 +15,13 @@ export class UserService {
   async user(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<User | null> {
-    try {
-      return await this.prisma.user.findUnique({
-        where: userWhereUniqueInput,
-      });
-    } catch (error) {
-      throw new BadRequestException('Error retrieving user.');
-    }
+    const user = await this.prisma.user.findUnique({
+      where: userWhereUniqueInput,
+    });
+
+    if (!user) throw new NotFoundException('Error retrieving user.');
+
+    return user;
   }
 
   async users(params: {
@@ -75,6 +79,11 @@ export class UserService {
         where,
       });
     } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new NotFoundException('User not found.');
+        }
+      }
       throw new BadRequestException('Error updating user.');
     }
   }
@@ -85,6 +94,11 @@ export class UserService {
         where,
       });
     } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new NotFoundException('User not found.');
+        }
+      }
       throw new BadRequestException('Error deleting user.');
     }
   }
