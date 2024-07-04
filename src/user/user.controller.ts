@@ -18,23 +18,23 @@ export class UserController {
   constructor(private readonly user: UserService) {}
 
   @Get('/:id')
-  public getUser(@Param('id', ParseIntPipe) id: number): Promise<User | null> {
-    return this.user.user({
+  public async getUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
+    return await this.user.user({
       id,
     });
   }
 
   @Post('/')
-  public createUser(@Body() data: CreateUserDto): Promise<User | null> {
-    return this.user.createUser(data);
+  public async createUser(@Body() data: CreateUserDto): Promise<User> {
+    return await this.user.createUser(data);
   }
 
   @Patch('/:id')
-  public updateUser(
+  public async updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() data: UpdateUserDto,
   ): Promise<User | null> {
-    return this.user.updateUser({
+    return await this.user.updateUser({
       where: {
         id,
       },
@@ -43,10 +43,10 @@ export class UserController {
   }
 
   @Delete('/:id')
-  public deleteUser(
+  public async deleteUser(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<User | null> {
-    return this.user.deleteUser({
+    return await this.user.deleteUser({
       id,
     });
   }

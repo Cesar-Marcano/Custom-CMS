@@ -6,8 +6,11 @@ import { User, Role } from '@prisma/client';
 export class RoleService {
   constructor(private user: UserService) {}
 
-  private assignRoleToUser(userId: number, role: Role): Promise<User | null> {
-    return this.user.updateUser({
+  private async assignRoleToUser(
+    userId: number,
+    role: Role,
+  ): Promise<User | null> {
+    return await this.user.updateUser({
       where: {
         id: userId,
       },
@@ -17,15 +20,15 @@ export class RoleService {
     });
   }
 
-  public banUser(userId: number): Promise<User | null> {
-    return this.assignRoleToUser(userId, Role.READONLY);
+  public async banUser(userId: number): Promise<User | null> {
+    return await this.assignRoleToUser(userId, Role.READONLY);
   }
 
-  public promoteUser(userId: number): Promise<User | null> {
-    return this.assignRoleToUser(userId, Role.ADMIN);
+  public async promoteUser(userId: number): Promise<User | null> {
+    return await this.assignRoleToUser(userId, Role.ADMIN);
   }
 
-  public demoteUser(userId: number): Promise<User | null> {
-    return this.assignRoleToUser(userId, Role.USER);
+  public async demoteUser(userId: number): Promise<User | null> {
+    return await this.assignRoleToUser(userId, Role.USER);
   }
 }
