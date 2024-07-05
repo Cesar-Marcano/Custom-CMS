@@ -18,8 +18,21 @@ export class PostService {
     return post;
   }
 
-  public async posts(where: Prisma.PostWhereInput): Promise<Post[] | null> {
-    const post = await this.prisma.post.findMany({ where });
+  public async posts(params: {
+    skip?: number;
+    take?: number;
+    cursor?: Prisma.PostWhereUniqueInput;
+    where?: Prisma.PostWhereInput;
+    orderBy?: Prisma.PostOrderByWithRelationInput;
+  }): Promise<Post[] | null> {
+    const { skip, take, cursor, where, orderBy } = params;
+    const post = await this.prisma.post.findMany({
+      skip,
+      take,
+      cursor,
+      where,
+      orderBy,
+    });
 
     if (post.length < 1) throw new NotFoundException('Post not found.');
 
