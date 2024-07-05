@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Response,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUser.dto';
@@ -70,8 +70,8 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
   @Get('profile')
-  public async myProfile(@Response() res): Promise<Partial<User>> {
-    const user: jwtPayload = res.user;
+  public async myProfile(@Request() req): Promise<Partial<User>> {
+    const user: jwtPayload = req.user;
 
     return await this.authService.profile(user.id);
   }
