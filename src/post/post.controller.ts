@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -21,6 +24,7 @@ import { UpdatePostDto } from './dto/updatePost.dto';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @HttpCode(HttpStatus.CREATED)
   @UseGuards(AdminGuard)
   @Post('create')
   public async createPost(
@@ -38,6 +42,7 @@ export class PostController {
     });
   }
 
+  @HttpCode(HttpStatus.OK)
   @Get('')
   public async getPosts(
     @Query() query: GetPostsDto,
@@ -58,6 +63,7 @@ export class PostController {
     });
   }
 
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AdminGuard)
   @Patch(':slug')
   public async updatePost(
@@ -69,6 +75,15 @@ export class PostController {
         slug,
       },
       data,
+    });
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AdminGuard)
+  @Delete(':slug')
+  public async deletePost(@Param('slug') slug: string): Promise<PostModel> {
+    return await this.postService.deletePost({
+      slug,
     });
   }
 }
