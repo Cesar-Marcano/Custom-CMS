@@ -34,7 +34,7 @@ export class PostService {
       orderBy,
     });
 
-    if (post.length < 1) throw new NotFoundException('Post not found.');
+    if (post.length < 1) throw new NotFoundException('Falied to fetch posts.');
 
     return post;
   }

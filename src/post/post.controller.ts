@@ -1,9 +1,19 @@
-import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AdminGuard } from 'src/guards/admin.guard';
 import { CreatePostDto } from './dto/createPost.dto';
 import { Post as PostModel } from '@prisma/client';
 import { PostService } from './post.service';
 import { jwtPayload } from 'src/auth/auth.service';
+import { GetPostsDto } from './dto/getPosts.dto';
 
 @Controller('post')
 export class PostController {
@@ -16,13 +26,33 @@ export class PostController {
     @Res() res,
   ): Promise<PostModel> {
     const user: jwtPayload = res.user;
-    return this.postService.createPost({
+    return await this.postService.createPost({
       ...createPostDto,
       user: {
         connect: {
           id: user.id,
         },
       },
+    });
+  }
+
+  @Get('')
+  public async getPosts(
+    @Query() query: GetPostsDto,
+  ): Promise<PostModel[] | null> {
+    return await this.postService.posts({
+      skip: query.page * query.limit,
+      take: query.limit,
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
+  @Get(':slug')
+  public async getPost(@Param('slug') slug: string): Promise<PostModel> {
+    return await this.postService.post({
+      slug,
     });
   }
 }
