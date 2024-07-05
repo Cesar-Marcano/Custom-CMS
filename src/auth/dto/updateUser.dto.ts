@@ -1,5 +1,5 @@
 import { User } from '@prisma/client';
-import { IsString, Length } from 'class-validator';
+import { IsOptional, IsString, Length } from 'class-validator';
 
 export class UpdateUserDto implements Partial<User> {
   constructor(partial: Partial<User>) {
@@ -8,13 +8,16 @@ export class UpdateUserDto implements Partial<User> {
 
   @IsString()
   @Length(2, 50)
+  @IsOptional()
   name?: string;
 
   @IsString()
   @Length(2, 50)
+  @IsOptional()
   lastName?: string;
 
   @IsString()
   @Length(8, 40)
+  @IsOptional()
   password?: string;
 }
