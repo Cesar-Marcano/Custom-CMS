@@ -3,9 +3,10 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Query,
-  Res,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/guards/admin.guard';
@@ -14,6 +15,7 @@ import { Post as PostModel } from '@prisma/client';
 import { PostService } from './post.service';
 import { jwtPayload } from 'src/auth/auth.service';
 import { GetPostsDto } from './dto/getPosts.dto';
+import { UpdatePostDto } from './dto/updatePost.dto';
 
 @Controller('post')
 export class PostController {
@@ -23,9 +25,9 @@ export class PostController {
   @Post('create')
   public async createPost(
     @Body() createPostDto: CreatePostDto,
-    @Res() res,
+    @Request() req,
   ): Promise<PostModel> {
-    const user: jwtPayload = res.user;
+    const user: jwtPayload = req.user;
     return await this.postService.createPost({
       ...createPostDto,
       user: {
@@ -53,6 +55,20 @@ export class PostController {
   public async getPost(@Param('slug') slug: string): Promise<PostModel> {
     return await this.postService.post({
       slug,
+    });
+  }
+
+  @UseGuards(AdminGuard)
+  @Patch(':slug')
+  public async updatePost(
+    @Param('slug') slug: string,
+    @Body() data: UpdatePostDto,
+  ): Promise<PostModel> {
+    return await this.postService.updatePost({
+      where: {
+        slug,
+      },
+      data,
     });
   }
 }
