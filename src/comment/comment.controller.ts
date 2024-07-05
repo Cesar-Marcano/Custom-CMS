@@ -12,6 +12,7 @@ import {
   Put,
   Query,
   Request,
+  UseGuards,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { Comment, Role } from '@prisma/client';
@@ -19,6 +20,8 @@ import { GetCommentsDto } from './dto/getComments.dto';
 import { CreateCommentDto } from './dto/createComment.dto';
 import { jwtPayload } from 'src/auth/auth.service';
 import { UpdateCommentDto } from './dto/updateComment.dto';
+import { UserGuard } from 'src/guards/user.guard';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('comment')
 export class CommentController {
@@ -46,6 +49,7 @@ export class CommentController {
   }
 
   @HttpCode(HttpStatus.CREATED)
+  @UseGuards(UserGuard)
   @Post('')
   public async createComment(
     @Body() data: CreateCommentDto,
@@ -69,6 +73,7 @@ export class CommentController {
   }
 
   @HttpCode(HttpStatus.CREATED)
+  @UseGuards(UserGuard)
   @Put(':id')
   public async updateComment(
     @Param('id', ParseIntPipe) id: number,
@@ -93,6 +98,7 @@ export class CommentController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
   @Delete(':id')
   public async deleteComment(
     @Param('id', ParseIntPipe) id: number,
