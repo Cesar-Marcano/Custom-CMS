@@ -1,73 +1,71 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Custom CMS API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Custom CMS API is a RESTful API built with NestJS, providing endpoints to manage blog posts, comments, user authentication, and user management.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Create, read, update, and delete blog posts (`/post` endpoints)
+- Create, read, update, and delete comments (`/comment` endpoints)
+- User registration and authentication (`/auth` endpoints)
+- User management features (promote, demote, ban users)
+- JWT-based authentication and authorization
+- Swagger API documentation for easy exploration and testing
 
 ## Installation
 
-```bash
-$ pnpm install
-```
+Clone the repository:
 
-## Running the app
+"""bash
+git clone https://github.com/Cesar-Marcano/Custom-CMS.git
+"""
 
-```bash
-# development
-$ pnpm run start
+Install dependencies:
 
-# watch mode
-$ pnpm run start:dev
+"""bash
+cd Custom-CMS
+pnpm install
+"""
 
-# production mode
-$ pnpm run start:prod
-```
+Set up environment variables:
 
-## Test
+"""bash
+# Rename .env.example to .env and update the variables
+cp .env.example .env
+"""
 
-```bash
-# unit tests
-$ pnpm run test
+## Running the App
 
-# e2e tests
-$ pnpm run test:e2e
+"""bash
+# Development mode
+npm run start:dev
 
-# test coverage
-$ pnpm run test:cov
-```
+# Production mode
+npm run start:prod
+"""
 
-## Support
+The API will be available at `http://localhost:3000`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## API Documentation
 
-## Stay in touch
+Explore the API endpoints and schemas using Swagger UI:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+"""bash
+# After starting the app, visit the following URL in your browser
+http://localhost:3000/api
+"""
+
+## Environment Variables
+
+- `DATABASE`: Database URL of the server (MySQL)
+- `JWT_SECRET`: Secret key for JWT token generation
+
+## Technologies Used
+
+- **NestJS**: Framework for building efficient, scalable Node.js server-side applications
+- **Prisma**: Modern database access toolkit for TypeScript and Node.js
+- **Swagger**: API documentation and exploration tool
+- **JWT**: JSON Web Token for secure authentication
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
