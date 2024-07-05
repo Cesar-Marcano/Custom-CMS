@@ -15,33 +15,33 @@ Custom CMS API is a RESTful API built with NestJS, providing endpoints to manage
 
 Clone the repository:
 
-"""bash
+```bash
 git clone https://github.com/Cesar-Marcano/Custom-CMS.git
-"""
+```
 
 Install dependencies:
 
-"""bash
+```bash
 cd Custom-CMS
 pnpm install
-"""
+```
 
 Set up environment variables:
 
-"""bash
+```bash
 # Rename .env.example to .env and update the variables
 cp .env.example .env
-"""
+```
 
 ## Running the App
 
-"""bash
+```bash
 # Development mode
 npm run start:dev
 
 # Production mode
 npm run start:prod
-"""
+```
 
 The API will be available at `http://localhost:3000`.
 
@@ -49,10 +49,10 @@ The API will be available at `http://localhost:3000`.
 
 Explore the API endpoints and schemas using Swagger UI:
 
-"""bash
+```bash
 # After starting the app, visit the following URL in your browser
 http://localhost:3000/api
-"""
+```
 
 ## Environment Variables
 
