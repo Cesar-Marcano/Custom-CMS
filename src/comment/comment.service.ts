@@ -49,7 +49,35 @@ export class CommentService {
         data,
       });
     } catch (error) {
-      throw new InternalServerErrorException('Error while creating comment');
+      throw new InternalServerErrorException('Error while creating comment.');
+    }
+  }
+
+  public async updateComment(props: {
+    data: Prisma.CommentUpdateInput;
+    where: Prisma.CommentWhereUniqueInput;
+  }): Promise<Comment | null> {
+    const { data, where } = props;
+
+    try {
+      return this.prisma.comment.update({
+        data,
+        where,
+      });
+    } catch (error) {
+      throw new InternalServerErrorException('Error while updating comment.');
+    }
+  }
+
+  public async deleteComment(
+    where: Prisma.CommentWhereUniqueInput,
+  ): Promise<Comment | null> {
+    try {
+      return await this.prisma.comment.delete({
+        where,
+      });
+    } catch (error) {
+      throw new InternalServerErrorException('Error while deleting comment.');
     }
   }
 }
