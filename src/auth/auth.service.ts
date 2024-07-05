@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { $Enums, Prisma } from '@prisma/client';
+import { $Enums, Prisma, User } from '@prisma/client';
 import { RoleService } from 'src/user/role.service';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
@@ -61,5 +61,13 @@ export class AuthService {
     const access_token = await this.jwt.signAsync(payload);
 
     return { access_token };
+  }
+
+  public async profile(id: number): Promise<Partial<User> | null> {
+    const { name, lastName, email, createdAt, role } = await this.user.user({
+      id,
+    });
+
+    return { name, lastName, email, createdAt, role };
   }
 }
