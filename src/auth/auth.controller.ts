@@ -14,9 +14,9 @@ import {
 import { CreateUserDto } from './dto/createUser.dto';
 import { AuthService, jwtPayload } from './auth.service';
 import { LoginDto } from './dto/logInUser.dto';
-import { AdminGuard } from './admin.guard';
+import { AdminGuard } from '../guards/admin.guard';
 import { RoleService } from 'src/user/role.service';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 import { User } from '@prisma/client';
 
 @Controller('auth')
