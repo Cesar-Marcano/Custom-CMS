@@ -42,6 +42,7 @@ export class AuthController {
     return await this.authService.login(data);
   }
 
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AdminGuard)
   @Patch('promote-user/:id')
   public async promoteUser(
@@ -50,6 +51,7 @@ export class AuthController {
     return this.roleService.promoteUser(id);
   }
 
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AdminGuard)
   @Patch('demote-user/:id')
   public async demoteUser(
@@ -58,12 +60,14 @@ export class AuthController {
     return this.roleService.demoteUser(id);
   }
 
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AdminGuard)
   @Patch('ban-user/:id')
   public async banUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.roleService.banUser(id);
   }
 
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
   @Get('profile')
   public async myProfile(@Response() res): Promise<Partial<User>> {
@@ -72,6 +76,7 @@ export class AuthController {
     return await this.authService.profile(user.id);
   }
 
+  @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
   @Get('profile/:id')
   public async profile(
