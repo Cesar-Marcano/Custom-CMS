@@ -5,9 +5,11 @@ import {
   HttpStatus,
   Param,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { Comment } from '@prisma/client';
+import { GetCommentsDto } from './dto/getComments.dto';
 
 @Controller('comment')
 export class CommentController {
@@ -23,7 +25,14 @@ export class CommentController {
 
   @HttpCode(HttpStatus.OK)
   @Get('post/:slug')
-  public async getPostComment(@Param('slug') slug: string): Promise<Comment[]> {
-    return await this.comment.comments({ post: { slug } });
+  public async getPostComments(
+    @Param('slug') slug: string,
+    @Query() query: GetCommentsDto,
+  ): Promise<Comment[]> {
+    return await this.comment.comments({
+      skip: query.page * query.limit,
+      take: query.limit,
+      post: { slug },
+    });
   }
 }
