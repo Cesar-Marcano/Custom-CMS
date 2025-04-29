@@ -38,6 +38,9 @@ importers:
       class-validator:
         specifier: ^0.14.1
         version: 0.14.1
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
       reflect-metadata:
         specifier: ^0.2.0
         version: 0.2.2
@@ -84,9 +87,6 @@ importers:
       jest:
         specifier: ^29.5.0
         version: 29.7.0(@types/node@20.17.32)(ts-node@10.9.2(@types/node@20.17.32)(typescript@5.8.3))
-      prettier:
-        specifier: ^3.0.0
-        version: 3.5.3
       prisma:
         specifier: ^5.16.1
         version: 5.22.0
